@@ -4,6 +4,73 @@
     <meta charset="UTF-8">
     <title>Contact Me</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-container {
+            display: flex;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .contact-image {
+            flex: 1;
+            background-image: url('contact.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .contact-form {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .contact-form button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #f0ad4e;
+        }
+        nav {
+            text-align: center;
+            background-color: #333;
+            padding: 15px;
+        }
+        nav a {
+            color: white;
+            font-size: 18px;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            color: #f0ad4e;
+        }
+        header {
+            text-align: center;
+            margin-top: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 <body>
 
@@ -16,16 +83,17 @@
 
   <header>
       <h1>Contact Me</h1>
-      <p>Feel free to reach out to me through this form:</p>
+      <p>Feel free to reach out through this form:</p>
   </header>
 
-  <section class="contact-form">
-    <form action="https://formspree.io/f/your-form-id" method="POST">
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </section>
+  <div class="contact-container">
+      <div class="contact-image"></div>
+      <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+          <button type="submit">Send</button>
+      </form>
+  </div>
 
 </body>
 </html>
