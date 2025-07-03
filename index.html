@@ -2,40 +2,46 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Hamster-B's website</title>
+    <title>Hamster-B's Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to my webpage!</h1>
-    <p>Share, learn and record</p>
 
-    <script src="script.js"></script>
+  <!-- 导航栏 -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="project.html">Projects</a>
+    <a href="life.html">Life</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- 主体内容 -->
+  <header>
+      <h1>Welcome to my webpage!</h1>
+      <p>Share, learn and record</p>
+  </header>
+
+  <!-- 图片展示 -->
+  <section class="media">
+      <img src="images/my-photo.jpg" alt="My photo">
+      <video controls>
+        <source src="videos/my-video.mp4" type="video/mp4">
+      </video>
+  </section>
+
+  <!-- 按钮交互 -->
+  <button id="clickButton">Click me！</button>
+
+  <!-- 留言表单 -->
+  <section class="contact-form">
+    <h2>Contact Me</h2>
+    <form action="https://formspree.io/f/your-form-id" method="POST">
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <script src="script.js"></script>
 </body>
-
-<button id="clickButton">Click！</button>
-    
-<nav>
-  <a href="index.html">Home</a>
-  <a href="project.html">Projects</a>
-  <a href="life.html">Life</a>
-  <a href="contact.html">Contact</a>
-</nav>
-
-<img src="你的图片地址.jpg" alt="描述文字" width="300">
-
-<audio controls>
-  <source src="你的音频.mp3" type="audio/mp3">
-</audio>
-
-<video width="320" height="240" controls>
-  <source src="你的视频.mp4" type="video/mp4">
-</video>
-
-<form action="https://formspree.io/f/your-form-id" method="POST">
-    <input type="email" name="email" placeholder="Email">
-    <textarea name="message" placeholder="Message"></textarea>
-    <button type="submit">Upload</button>
-</form>
-
-    
 </html>
