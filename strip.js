@@ -1,7 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    alert('Welcome to my webpage!！');
-});
-
 document.getElementById("clickButton").onclick = function() {
-    alert("Boom！");
+  alert("You clicked the button!");
 };
