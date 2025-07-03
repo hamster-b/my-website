@@ -1,8 +1,19 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f8f9fa;
+    background-image: linear-gradient(to right, #ffecd2, #fcb69f);
     padding: 50px;
+}
+
+button:hover {
+  background-color: #f0ad4e;
+  transform: scale(1.05);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
