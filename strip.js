@@ -1,3 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    alert('欢迎访问我的网页！');
+    alert('Welcome to my webpage!！');
 });
+
+document.getElementById("clickButton").onclick = function() {
+    alert("Boom！");
+};
