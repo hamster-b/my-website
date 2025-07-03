@@ -1,25 +1,104 @@
+/* 基础设置 */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-image: linear-gradient(to right, #ffecd2, #fcb69f);
-    padding: 50px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
 }
 
-button:hover {
-  background-color: #f0ad4e;
-  transform: scale(1.05);
+/* 导航栏样式 */
+nav {
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
 }
 
-.container {
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #f0ad4e;
+}
+
+/* 主体内容 */
+header {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+header h1 {
+  margin-bottom: 10px;
+}
+
+header p {
+  color: #666;
+}
+
+/* 图片和视频展示区 */
+.media {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  padding: 20px;
 }
 
-h1 {
-    color: #343a40;
+.media img, .media video {
+  max-width: 100%;
+  border-radius: 10px;
 }
 
-p {
-    color: #495057;
+/* 按钮样式 */
+#clickButton {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#clickButton:hover {
+  background-color: #f0ad4e;
+}
+
+/* 表单样式 */
+.contact-form {
+  background-color: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.contact-form button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #f0ad4e;
 }
