@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamster-B's Website</title>
+    <title>Hamster-B's Website with Interactive Gallery</title>
     <style>
         * {
             margin: 0;
@@ -12,15 +12,20 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
             color: #333;
+            line-height: 1.6;
         }
 
         nav {
-            background-color: #333;
-            padding: 15px;
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            padding: 18px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         nav a {
@@ -28,105 +33,177 @@
             text-decoration: none;
             font-size: 18px;
             margin: 0 20px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
 
         nav a:hover {
-            color: #f0ad4e;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
 
         header {
             text-align: center;
-            padding: 30px 20px 10px;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 50px 20px 30px;
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
         }
 
         header h1 {
-            margin-bottom: 10px;
-            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            animation: titleFloat 6s ease-in-out infinite;
         }
 
         header p {
-            color: #555;
-            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
         }
 
         .main-section {
             display: flex;
-            max-width: 1200px;
-            margin: 30px auto;
+            max-width: 1300px;
+            margin: 0 auto 50px;
             padding: 20px;
-            gap: 40px;
+            gap: 50px;
+            align-items: stretch;
         }
 
         .intro {
             flex: 1;
             text-align: center;
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            align-self: flex-start;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 450px;
         }
 
-        .intro img {
-            width: 160px;
-            height: 160px;
+        .intro-header {
+            margin-bottom: 25px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
             object-fit: cover;
             border-radius: 50%;
-            margin-bottom: 20px;
-            border: 3px solid #eaeaea;
+            margin: 0 auto 20px;
+            border: 4px solid #eaeaea;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+
+        .intro:hover .profile-img {
+            transform: rotate(5deg);
+        }
+
+        .intro h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
         .intro p {
-            font-size: 18px;
+            font-size: 1.1rem;
             line-height: 1.7;
             color: #444;
+            margin-bottom: 25px;
         }
 
-        /* ===== 自动滚动展示墙 ===== */
+        .research-area {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .research-area h3 {
+            font-size: 1.2rem;
+            color: #2980b9;
+            margin-bottom: 8px;
+        }
+
+        /* ===== 照片墙容器 ===== */
         .gallery-container {
             flex: 2;
-            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
-            border-radius: 10px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
             overflow: hidden;
             position: relative;
             height: 600px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            perspective: 1500px;
+        }
+
+        .gallery-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
         
         .gallery-scroll {
             position: absolute;
             width: 100%;
+            height: auto;
             display: flex;
             flex-direction: column;
             padding: 20px 15px;
-            animation: scrollGallery 30s linear infinite;
-        }
-        
-        @keyframes scrollGallery {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(calc(-100% + 600px)); }
-        }
-        
-        .gallery-scroll:hover {
-            animation-play-state: paused;
+            transition: transform 0.2s ease-out;
         }
         
         .gallery-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(4px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
             transition: all 0.4s ease;
+            transform-origin: center center;
+            position: relative;
+            overflow: hidden;
         }
         
         .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
             background: rgba(255, 255, 255, 0.15);
+            z-index: 10;
+        }
+        
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.3), rgba(41, 128, 185, 0.2));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .gallery-item:hover::before {
+            opacity: 1;
         }
         
         .gallery-item img {
@@ -134,15 +211,54 @@
             height: 200px;
             object-fit: cover;
             display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.08);
         }
         
         .gallery-item p {
-            padding: 15px;
+            padding: 18px;
             color: white;
             text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 500;
             letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .scroll-control {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px;
+            border-radius: 0 0 15px 15px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-container:hover .scroll-control {
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 20;
         }
         
         /* 响应式设计 */
@@ -153,11 +269,16 @@
             
             .intro {
                 width: 100%;
+                min-height: auto;
             }
             
             .gallery-container {
                 width: 100%;
                 height: 500px;
+            }
+            
+            header h1 {
+                font-size: 2.3rem;
             }
         }
         
@@ -166,20 +287,14 @@
                 height: 450px;
             }
             
-            .gallery-scroll {
-                flex-direction: row;
-                animation: scrollGalleryHorizontal 30s linear infinite;
+            nav a {
+                display: inline-block;
+                margin: 5px;
+                padding: 6px 12px;
             }
             
-            .gallery-item {
-                min-width: 280px;
-                margin-right: 25px;
-                margin-bottom: 0;
-            }
-            
-            @keyframes scrollGallery {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(calc(-100% + 100vw - 60px)); }
+            .gallery-item img {
+                height: 170px;
             }
         }
         
@@ -189,13 +304,30 @@
             }
             
             .gallery-item img {
-                height: 160px;
+                height: 150px;
             }
             
-            nav a {
-                display: block;
-                margin: 10px 0;
+            header h1 {
+                font-size: 2rem;
             }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
     </style>
 </head>
@@ -211,92 +343,175 @@
 
   <!-- 欢迎语 -->
   <header>
-      <h1>Welcome to my webpage!</h1>
-      <p>Share, learn and record</p>
+      <h1>Welcome to Hamster-B's Research Hub</h1>
+      <p>Explore the world of photonics through my journey as a PhD candidate</p>
   </header>
 
   <!-- 主体部分 -->
   <section class="main-section">
     <!-- 左侧：头像 + 自我介绍 -->
     <div class="intro">
-      <img src="photo.jpg" alt="Hamster-B">
-      <p>I am Hamster-B, a PhD candidate specializing in integrated photonics.</p>
+      <div class="intro-header">
+        <img src="https://images.unsplash.com/photo-1534030347209-467a5b0ad143?ixlib=rb-4.0.3&auto=format&fit=crop&w=300" alt="Hamster-B" class="profile-img">
+        <h2>Hamster-B, PhD Candidate</h2>
+        <p>Specializing in integrated photonics with a focus on optical communications and silicon photonics. 
+          My research aims to develop efficient photonic devices for next-generation computing systems.</p>
+      </div>
+      
+      <div class="research-area">
+        <h3>Research Focus</h3>
+        <p>Photonic integrated circuits, optical interconnects, silicon nitride waveguides, and nonlinear optics in silicon.</p>
+      </div>
     </div>
 
-    <!-- 右侧：自动滚动展示墙 -->
-    <div class="gallery-container">
-      <div class="gallery-scroll">
+    <!-- 右侧：照片墙 -->
+    <div class="gallery-container" id="galleryContainer">
+      <div class="gallery-scroll" id="galleryScroll">
         <div class="gallery-item">
-          <img src="images/gallery1.jpg" alt="实验室会议">
-          <p>实验室会议</p>
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=500" alt="实验室会议">
+          <p>实验室团队会议</p>
         </div>
         <div class="gallery-item">
-          <img src="images/gallery2.jpg" alt="实验设备">
-          <p>实验设备</p>
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=500" alt="实验设备">
+          <p>光子测量设备</p>
         </div>
         <div class="gallery-item">
-          <img src="images/gallery3.jpg" alt="研究生活">
-          <p>研究生活</p>
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=500" alt="研究生活">
+          <p>研究生日常</p>
         </div>
         <div class="gallery-item">
-          <img src="images/gallery4.jpg" alt="学术讨论">
-          <p>学术讨论</p>
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=500" alt="学术讨论">
+          <p>学术研讨会</p>
         </div>
         <div class="gallery-item">
-          <img src="images/gallery5.jpg" alt="项目展示">
-          <p>项目展示</p>
-        </div>
-        
-        <!-- 重复项目以实现无缝滚动 -->
-        <div class="gallery-item">
-          <img src="images/gallery1.jpg" alt="实验室会议">
-          <p>实验室会议</p>
+          <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=500" alt="项目展示">
+          <p>项目成果展示</p>
         </div>
         <div class="gallery-item">
-          <img src="images/gallery2.jpg" alt="实验设备">
-          <p>实验设备</p>
+          <img src="https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&w=500" alt="实验设备">
+          <p>光学实验台</p>
         </div>
         <div class="gallery-item">
-          <img src="images/gallery3.jpg" alt="研究生活">
-          <p>研究生活</p>
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=500" alt="数据可视化">
+          <p>研究数据分析</p>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1590408854765-380db1c4ed15?auto=format&fit=crop&w=500" alt="研究环境">
+          <p>实验室工作环境</p>
         </div>
       </div>
+      <div class="scroll-control">提示: 将鼠标放在照片墙上并使用滚轮上下滚动</div>
+      <div class="counter" id="scrollCounter">1/8</div>
     </div>
   </section>
 
+  <footer>
+    <p>&copy; 2023 Hamster-B Research Portal. 所有图片均为示范内容，实际网站可替换为真实照片。</p>
+  </footer>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const galleryContainer = document.querySelector('.gallery-container');
-        const scrollElement = document.querySelector('.gallery-scroll');
-        const items = document.querySelectorAll('.gallery-item');
+        const galleryContainer = document.getElementById('galleryContainer');
+        const galleryScroll = document.getElementById('galleryScroll');
+        const galleryItems = galleryScroll.querySelectorAll('.gallery-item');
+        const scrollCounter = document.getElementById('scrollCounter');
         
-        if (items.length > 0) {
-            // 计算总高度和容器高度
-            const containerHeight = galleryContainer.offsetHeight;
-            const itemHeight = items[0].offsetHeight + 
-                               parseInt(getComputedStyle(items[0]).marginBottom);
-            
-            // 计算实际需要的内容高度
-            const totalItemsHeight = items.length * itemHeight;
-            const requiredHeight = containerHeight + itemHeight * (items.length / 2);
-            
-            // 设置动画持续时间
-            const duration = Math.max(25, (totalItemsHeight / containerHeight) * 15);
-            scrollElement.style.animationDuration = `${duration}s`;
-            
-            // 动态更新关键帧
-            const style = document.createElement('style');
-            document.head.appendChild(style);
-            
-            if (window.innerWidth > 768) {
-                style.innerHTML = `
-                    @keyframes scrollGallery {
-                        0% { transform: translateY(0); }
-                        100% { transform: translateY(calc(-${totalItemsHeight/2}px + ${containerHeight}px)); }
-                    }
-                `;
-            }
+        // 计算照片墙高度和内容高度
+        const containerHeight = galleryContainer.offsetHeight;
+        const scrollContentHeight = galleryScroll.scrollHeight;
+        let scrollPosition = 0;
+        let currentItem = 1;
+        const totalItems = galleryItems.length;
+        
+        // 更新计数器
+        function updateCounter() {
+            scrollCounter.textContent = `${currentItem}/${totalItems}`;
         }
+        
+        // 鼠标滚轮滚动事件
+        galleryContainer.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            
+            // 控制滚动方向
+            if (e.deltaY > 0) {
+                // 向下滚动
+                scrollPosition += 80;
+            } else {
+                // 向上滚动
+                scrollPosition -= 80;
+            }
+            
+            // 限制滚动边界
+            scrollPosition = Math.max(0, Math.min(scrollContentHeight - containerHeight, scrollPosition));
+            
+            // 应用滚动位置
+            galleryScroll.style.transform = `translateY(-${scrollPosition}px)`;
+            
+            // 计算当前显示的项目
+            const visibleArea = scrollPosition + (containerHeight / 2);
+            for (let i = 0; i < galleryItems.length; i++) {
+                const itemTop = galleryItems[i].offsetTop;
+                const itemHeight = galleryItems[i].offsetHeight;
+                
+                if (visibleArea > itemTop && visibleArea < itemTop + itemHeight) {
+                    currentItem = i + 1;
+                    updateCounter();
+                    break;
+                }
+            }
+        });
+        
+        // 初始计数器状态
+        updateCounter();
+        
+        // 为移动设备添加触摸支持
+        let startY = 0;
+        let currentY = 0;
+        
+        galleryContainer.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        });
+        
+        galleryContainer.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            currentY = e.touches[0].clientY;
+            
+            const deltaY = startY - currentY;
+            scrollPosition -= deltaY * 2;
+            
+            // 限制滚动边界
+            scrollPosition = Math.max(0, Math.min(scrollContentHeight - containerHeight, scrollPosition));
+            
+            // 应用滚动位置
+            galleryScroll.style.transform = `translateY(-${scrollPosition}px)`;
+            
+            startY = currentY;
+            
+            // 更新计数器
+            const visibleArea = scrollPosition + (containerHeight / 2);
+            for (let i = 0; i < galleryItems.length; i++) {
+                const itemTop = galleryItems[i].offsetTop;
+                const itemHeight = galleryItems[i].offsetHeight;
+                
+                if (visibleArea > itemTop && visibleArea < itemTop + itemHeight) {
+                    currentItem = i + 1;
+                    updateCounter();
+                    break;
+                }
+            }
+        });
+        
+        // 设置照片项的入场动画
+        galleryItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 200 + index * 100);
+        });
     });
   </script>
 
