@@ -2,30 +2,799 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Research Projects</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Projects | Hamster-B's Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 20px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            animation: titleFloat 6s ease-in-out infinite;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
+        }
+
+        .projects-section {
+            max-width: 1300px;
+            margin: 0 auto 50px;
+            padding: 20px;
+        }
+
+        .projects-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .projects-intro h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .projects-intro h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #8e44ad);
+            border-radius: 2px;
+        }
+
+        .projects-intro p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-premium {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-premium i {
+            margin-right: 5px;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .project-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .project-btn {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .project-btn.premium-btn {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+        }
+
+        /* 项目详情模态框 */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            width: 85%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .project-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section h3 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .code-snippet {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .paywall-overlay {
+            background: rgba(255, 255, 255, 0.95);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .paywall-icon {
+            font-size: 5rem;
+            color: #ff9800;
+            margin-bottom: 20px;
+        }
+
+        .paywall-title {
+            color: #ff5722;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .paywall-description {
+            color: #333;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+
+        .premium-button {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .premium-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+        }
+
+        .premium-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature i {
+            color: #ff9800;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+            
+            .modal-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav a {
+                display: inline-block;
+                margin: 5px;
+                padding: 6px 12px;
+            }
+            
+            header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .modal-header {
+                padding: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .premium-features {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            .projects-section {
+                padding: 10px;
+            }
+            
+            .project-image {
+                height: 200px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
 
+  <!-- 导航栏 -->
   <nav>
     <a href="index.html">Home</a>
-    <a href="project.html">Projects</a>
-    <a href="life.html">Life</a>
-    <a href="contact.html">Contact</a>
+    <a href="project.html">Research Projects</a>
+    <a href="life.html">Photography</a>
+    <a href="contact.html">Contact Me</a>
   </nav>
 
+  <!-- 头部区域 -->
   <header>
-      <h1>Projects</h1>
-      <p>Here are some projects I've worked on:</p>
+      <h1>Research Projects</h1>
+      <p>Discover my latest innovations in integrated photonics</p>
   </header>
 
-  <section class="content">
-    <ul>
-      <li><strong>Project 1:</strong> Description of project 1.</li>
-      <li><strong>Project 2:</strong> Description of project 2.</li>
-      <li><strong>Project 3:</strong> Description of project 3.</li>
-    </ul>
+  <!-- 项目介绍区域 -->
+  <section class="projects-section">
+    <div class="projects-intro">
+        <h2>Innovative Photonics Research</h2>
+        <p>Explore my groundbreaking projects in photonic engineering. Each project includes detailed research methods, results, and implementation details. Premium content provides exclusive access to source code, experimental data, and video demonstrations.</p>
+    </div>
+    
+    <div class="projects-grid">
+        <!-- 项目1 -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&h=300&q=80" alt="Silicon Photonics Chip">
+            </div>
+            <div class="project-content">
+                <h3 class="project-title"><i class="fas fa-microchip"></i> Silicon Photonics Chip Design</h3>
+                <p class="project-description">Designed a novel silicon photonics chip for high-speed optical communication systems. This project achieved record-breaking data transmission rates of 200 Gbps with ultra-low power consumption.</p>
+                <div class="project-meta">
+                    <span><i class="far fa-calendar"></i> 2022-Present</span>
+                    <span><i class="fas fa-tags"></i> Photonics, Semiconductor</span>
+                </div>
+                <a href="#" class="project-btn open-modal" data-modal="modal1">View Project Details</a>
+            </div>
+        </div>
+        
+        <!-- 项目2 -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=600&h=300&q=80" alt="Optical Computing">
+                <div class="project-premium"><i class="fas fa-crown"></i> Premium</div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title"><i class="fas fa-lightbulb"></i> Optical Computing Accelerator</h3>
+                <p class="project-description">Developed a photonic computing accelerator that outperforms traditional electronic systems by 100x in matrix operations. This breakthrough technology enables real-time AI processing for edge devices.</p>
+                <div class="project-meta">
+                    <span><i class="far fa-calendar"></i> 2021-2023</span>
+                    <span><i class="fas fa-tags"></i> AI, Computing</span>
+                </div>
+                <a href="#" class="project-btn premium-btn open-modal" data-modal="modal2">View Project Details</a>
+            </div>
+        </div>
+        
+        <!-- 项目3 -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1593378026483-043d2b1c0042?auto=format&fit=crop&w=600&h=300&q=80" alt="Quantum Photonics">
+            </div>
+            <div class="project-content">
+                <h3 class="project-title"><i class="fas fa-atom"></i> Quantum Photonic Sensor</h3>
+                <p class="project-description">Created a quantum-enhanced photonic sensor with unprecedented sensitivity. This device has applications in medical diagnostics, environmental monitoring, and security systems.</p>
+                <div class="project-meta">
+                    <span><i class="far fa-calendar"></i> 2020-2022</span>
+                    <span><i class="fas fa-tags"></i> Quantum, Sensing</span>
+                </div>
+                <a href="#" class="project-btn open-modal" data-modal="modal3">View Project Details</a>
+            </div>
+        </div>
+        
+        <!-- 项目4 -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?auto=format&fit=crop&w=600&h=300&q=80" alt="Optical Neural Network">
+                <div class="project-premium"><i class="fas fa-crown"></i> Premium</div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title"><i class="fas fa-brain"></i> Photonic Neural Network</h3>
+                <p class="project-description">Pioneered an all-optical neural network that processes information at the speed of light. This system significantly reduces energy consumption while increasing computational efficiency.</p>
+                <div class="project-meta">
+                    <span><i class="far fa-calendar"></i> 2019-2021</span>
+                    <span><i class="fas fa-tags"></i> Machine Learning</span>
+                </div>
+                <a href="#" class="project-btn premium-btn open-modal" data-modal="modal4">View Project Details</a>
+            </div>
+        </div>
+        
+        <!-- 项目5 -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?auto=format&fit=crop&w=600&h=300&q=80" alt="LIDAR System">
+            </div>
+            <div class="project-content">
+                <h3 class="project-title"><i class="fas fa-radar"></i> Solid-State LIDAR System</h3>
+                <p class="project-description">Designed a miniature, solid-state LIDAR system for autonomous vehicles. This technology provides higher resolution and longer range than existing solutions at a fraction of the cost.</p>
+                <div class="project-meta">
+                    <span><i class="far fa-calendar"></i> 2018-2020</span>
+                    <span><i class="fas fa-tags"></i> Automotive, LIDAR</span>
+                </div>
+                <a href="#" class="project-btn open-modal" data-modal="modal5">View Project Details</a>
+            </div>
+        </div>
+        
+        <!-- 项目6 -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://images.unsplash.com/photo-1579829380885-9ba6f6c22323?auto=format&fit=crop&w=600&h=300&q=80" alt="Bio-Photonics">
+                <div class="project-premium"><i class="fas fa-crown"></i> Premium</div>
+            </div>
+            <div class="project-content">
+                <h3 class="project-title"><i class="fas fa-heartbeat"></i> Medical Diagnostic Photonics</h3>
+                <p class="project-description">Developed non-invasive photonic diagnostic tools for early detection of diseases. This system can detect biomarkers at ultra-low concentrations, revolutionizing medical diagnostics.</p>
+                <div class="project-meta">
+                    <span><i class="far fa-calendar"></i> 2017-2019</span>
+                    <span><i class="fas fa-tags"></i> Medical, Diagnostics</span>
+                </div>
+                <a href="#" class="project-btn premium-btn open-modal" data-modal="modal6">View Project Details</a>
+            </div>
+        </div>
+    </div>
   </section>
+  
+  <!-- 项目详情模态框 -->
+  <!-- 免费项目示例 -->
+  <div class="project-modal" id="modal1">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title">Silicon Photonics Chip Design</h3>
+              <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+              <div class="modal-image">
+                  <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&h=450&q=80" alt="Silicon Photonics Chip">
+              </div>
+              <div class="modal-description">
+                  <p>This project focuses on developing next-generation silicon photonics chips for high-speed data communication. We achieved a breakthrough in data transmission rates, reaching 200 Gbps with power consumption under 5 pJ/bit. This innovation enables more efficient data centers and high-performance computing systems.</p>
+              </div>
+              
+              <div class="modal-section">
+                  <h3>Technical Approach</h3>
+                  <p>Using advanced waveguide designs and novel modulation techniques, we minimized signal loss and maximized data throughput. Our approach included:</p>
+                  <ul>
+                      <li>Sub-wavelength grating couplers for improved light coupling</li>
+                      <li>Geometric phase modulation for precise signal control</li>
+                      <li>Multi-layered silicon nitride waveguides for reduced crosstalk</li>
+                      <li>Integrated photodetectors with enhanced quantum efficiency</li>
+                  </ul>
+              </div>
+              
+              <div class="modal-section">
+                  <h3>Performance Results</h3>
+                  <p>The chip demonstrated outstanding performance metrics across all parameters:</p>
+                  <div class="code-snippet">
+                      // Performance measurement results
+                      TransmissionRate = 200 Gbps; // Per channel
+                      PowerConsumption = 4.7 pJ/bit;
+                      BER = 1e-12; // Bit error rate
+                      SignalLoss = 1.2 dB/cm;
+                      OperatingWavelength = 1550 nm;
+                  </div>
+                  <p>These results represent a 40% improvement over existing commercial solutions.</p>
+              </div>
+              
+              <div class="modal-section">
+                  <h3>Implementation Video</h3>
+                  <div style="position:relative; padding-top:56.25%; margin-bottom:25px;">
+                      <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:8px;" 
+                              src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                              title="YouTube video player" 
+                              frameborder="0" 
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                              allowfullscreen>
+                      </iframe>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <!-- 付费项目示例 -->
+  <div class="project-modal" id="modal2">
+      <div class="modal-content">
+          <div class="paywall-overlay">
+              <div class="paywall-icon">
+                  <i class="fas fa-lock"></i>
+              </div>
+              <h2 class="paywall-title">Premium Content</h2>
+              <p class="paywall-description">
+                  This project contains exclusive research content only available to premium subscribers. 
+                  Unlock full access to detailed technical documents, source code, experimental data, 
+                  and video demonstrations.
+              </p>
+              
+              <div class="premium-features">
+                  <div class="feature">
+                      <i class="fas fa-code"></i>
+                      <span>Source Code Access</span>
+                  </div>
+                  <div class="feature">
+                      <i class="fas fa-video"></i>
+                      <span>Experiment Videos</span>
+                  </div>
+                  <div class="feature">
+                      <i class="fas fa-database"></i>
+                      <span>Raw Research Data</span>
+                  </div>
+              </div>
+              
+              <a href="#" class="premium-button">
+                  <i class="fas fa-crown"></i> Unlock Premium Access
+              </a>
+          </div>
+          
+          <div class="modal-header">
+              <h3 class="modal-title">Optical Computing Accelerator</h3>
+              <button class="modal-close">&times;</button>
+          </div>
+          <div class="modal-body">
+              <div class="modal-image">
+                  <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=900&h=450&q=80" alt="Optical Computing">
+              </div>
+              <div class="modal-description">
+                  <p>This project involves a revolutionary photonic computing accelerator that leverages light instead of electricity to perform computations. Our system achieves unprecedented speed and efficiency for AI processing tasks.</p>
+                  <p><strong>Key Features:</strong></p>
+                  <ul>
+                      <li>100x faster matrix operations than traditional GPUs</li>
+                      <li>Ultra-low energy consumption (under 10W for teraflop operations)</li>
+                      <li>Scalable architecture suitable for cloud and edge computing</li>
+                      <li>Support for deep learning inference with near-zero latency</li>
+                  </ul>
+              </div>
+              
+              <div class="modal-section">
+                  <h3>Architecture Overview</h3>
+                  <p>The system consists of multiple photonic tensor cores arranged in a scalable mesh network. Each core contains:</p>
+                  <div class="code-snippet">
+                      // Photonic tensor core architecture
+                      InputLayer = OpticalI/O(32 channels);
+                      ProcessingCore = {
+                          Modulators: MachZehnderInterferometerArray(8x8),
+                          WeightStorage: NonVolatilePhaseChangeMemory,
+                          Activation: AllOpticalReLU,
+                          Output: PhotodiodeArray + TransImpedanceAmps
+                      };
+                      Interconnect = SiliconPhotonicsWaveguideMesh;
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
+  <footer>
+    <p>&copy; 2023 Hamster-B Research Portal. All rights reserved. This website's content is for educational and communication purposes only.</p>
+    <p>If you believe any material infringes your rights, please contact us for removal.</p>
+  </footer>
+
+  <script>
+    // 模态框控制逻辑
+    document.addEventListener('DOMContentLoaded', function() {
+        // 打开模态框
+        const openButtons = document.querySelectorAll('.open-modal');
+        const modals = document.querySelectorAll('.project-modal');
+        const closeButtons = document.querySelectorAll('.modal-close');
+        
+        openButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modalId = this.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            });
+        });
+        
+        // 关闭模态框
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.project-modal');
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // 恢复背景滚动
+            });
+        });
+        
+        // 点击模态框外部关闭
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+        
+        // 按ESC键关闭模态框
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+    });
+  </script>
 </body>
 </html>
