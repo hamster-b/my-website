@@ -2,98 +2,404 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Me</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | Hamster-B's Research Portal</title>
     <style>
-        .contact-container {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 20px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            animation: titleFloat 6s ease-in-out infinite;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
+        }
+
+        .contact-section {
+            max-width: 1300px;
+            margin: 0 auto 50px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-info h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .contact-detail {
             display: flex;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            align-items: flex-start;
+            margin-bottom: 30px;
         }
-        .contact-image {
-            flex: 1;
-            background-image: url('contact.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 8px;
+
+        .contact-icon {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-right: 20px;
+            font-size: 1.3rem;
+            flex-shrink: 0;
         }
+
+        .contact-content h3 {
+            font-size: 1.3rem;
+            color: #2980b9;
+            margin-bottom: 8px;
+        }
+
+        .contact-content p {
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        .contact-map {
+            margin-top: 30px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-title {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
         .contact-form {
-            flex: 1;
-            padding: 20px;
             display: flex;
             flex-direction: column;
         }
-        .contact-form input,
-        .contact-form textarea {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+
+        .form-group {
+            margin-bottom: 25px;
         }
-        .contact-form button {
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 1.1rem;
         }
-        .contact-form button:hover {
-            background-color: #f0ad4e;
-        }
-        nav {
-            text-align: center;
-            background-color: #333;
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
             padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
-        nav a {
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: linear-gradient(to right, #3498db, #8e44ad);
             color: white;
-            font-size: 18px;
-            margin: 0 15px;
-            text-decoration: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 200px;
+            margin-top: 10px;
         }
-        nav a:hover {
-            color: #f0ad4e;
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(52, 152, 219, 0.4);
         }
-        header {
+
+        .social-links {
+            margin-top: 40px;
             text-align: center;
-            margin-top: 20px;
         }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+
+        .social-links h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 1.3rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.3rem;
+            }
+            
+            nav a {
+                display: inline-block;
+                margin: 5px;
+                padding: 6px 12px;
+                font-size: 16px;
+            }
+            
+            .contact-info, 
+            .contact-form-container {
+                padding: 30px 20px;
+            }
+            
+            .form-submit {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            .contact-section {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
+  <!-- 导航栏 -->
   <nav>
     <a href="index.html">Home</a>
-    <a href="project.html">Projects</a>
-    <a href="life.html">Life</a>
-    <a href="contact.html">Contact</a>
+    <a href="project.html">Research Projects</a>
+    <a href="life.html">Photography</a>
+    <a href="contact.html">Contact Me</a>
   </nav>
 
+  <!-- 头部区域 -->
   <header>
       <h1>Contact Me</h1>
-      <p>Feel free to reach out through this form:</p>
+      <p>I'd love to hear from you! Reach out through any of these channels</p>
   </header>
 
-  <div class="contact-container">
-      <div class="contact-image"></div>
+  <!-- 联系信息部分 -->
+  <section class="contact-section">
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      
+      <div class="contact-detail">
+        <div class="contact-icon">📱</div>
+        <div class="contact-content">
+          <h3>Phone</h3>
+          <p>+1 (650) 123-4567</p>
+        </div>
+      </div>
+      
+      <div class="contact-detail">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-content">
+          <h3>Email</h3>
+          <p>contact@hamsterb-research.com</p>
+        </div>
+      </div>
+      
+      <div class="contact-detail">
+        <div class="contact-icon">🏢</div>
+        <div class="contact-content">
+          <h3>Office</h3>
+          <p>Photonic Engineering Research Center</p>
+          <p>Stanford University</p>
+          <p>450 Serra Mall, Stanford, CA 94305</p>
+        </div>
+      </div>
+      
+      <div class="contact-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.6396782577774!2d-122.16647832354019!3d37.42724147207055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fbb2a678bea9d%3A0x29cdf01a44fc687f!2sStanford%20University!5e0!3m2!1sen!2sus!4v1689782568105!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+    
+    <div class="contact-form-container">
+      <h2 class="form-title">Send a Message</h2>
       <form class="contact-form" action="https://formspree.io/f/mkgbevgy" method="POST">
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
-          <button type="submit">Send</button>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="What is this regarding?" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+        </div>
+        
+        <button type="submit" class="form-submit">Send Message</button>
       </form>
-  </div>
+      
+      <div class="social-links">
+        <h3>Connect with Me</h3>
+        <div class="social-icons">
+          <a href="#" class="social-icon">in</a>
+          <a href="#" class="social-icon">f</a>
+          <a href="#" class="social-icon">t</a>
+          <a href="#" class="social-icon">📷</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Hamster-B Research Portal. All rights reserved. This website's content is for educational and communication purposes only.</p>
+    <p>If you believe any material infringes your rights, please contact us for removal.</p>
+  </footer>
 
 </body>
 </html>
