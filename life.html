@@ -2,28 +2,356 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Photography</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography | Hamster-B's Life Moments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 20px;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            margin-bottom: 15px;
+            font-size: 3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            animation: titleFloat 6s ease-in-out infinite;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
+        }
+
+        .gallery-section {
+            max-width: 1300px;
+            margin: 0 auto 50px;
+            padding: 20px;
+        }
+
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 2.2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #8e44ad);
+            border-radius: 2px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .gallery-info {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .gallery-info h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .gallery-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #444;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav a {
+                display: inline-block;
+                margin: 5px;
+                padding: 6px 12px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
+  <!-- 导航栏 -->
   <nav>
     <a href="index.html">Home</a>
-    <a href="project.html">Projects</a>
-    <a href="life.html">Life</a>
-    <a href="contact.html">Contact</a>
+    <a href="project.html">Research Projects</a>
+    <a href="life.html">Photography</a>
+    <a href="contact.html">Contact Me</a>
   </nav>
 
+  <!-- 欢迎语 -->
   <header>
       <h1>Life Moments</h1>
-      <p>Sharing some memorable moments from my life.</p>
+      <p>Sharing some memorable moments from my life</p>
   </header>
 
-  <section class="gallery">
-    <img src="life1.jpg" alt="Life moment 1">
-    <img src="life2.jpg" alt="Life moment 2">
-    <img src="life3.jpg" alt="Life moment 3">
+  <!-- 照片墙部分 -->
+  <section class="gallery-section">
+    <h2 class="gallery-title">My Photography Collection</h2>
+    
+    <div class="gallery-grid">
+      <!-- 照片项 1 -->
+      <div class="gallery-item">
+        <img src=life1 alt="Mountain Landscape">
+        <div class="gallery-overlay">
+          <h3>Mountain Peaks</h3>
+          <p>Rocky Mountains, Colorado</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 2 -->
+      <div class="gallery-item">
+        <img src=life2 alt="Forest Mist">
+        <div class="gallery-overlay">
+          <h3>Forest Mist</h3>
+          <p>Redwood National Park, California</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 3 -->
+      <div class="gallery-item">
+        <img src=life3 alt="Ocean Sunset">
+        <div class="gallery-overlay">
+          <h3>Ocean Sunset</h3>
+          <p>Pacific Coast, Oregon</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 4 -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=600&h=400&q=80" alt="City Lights">
+        <div class="gallery-overlay">
+          <h3>City Lights</h3>
+          <p>New York City Skyline</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 5 -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=600&h=400&q=80" alt="Desert Dunes">
+        <div class="gallery-overlay">
+          <h3>Desert Dunes</h3>
+          <p>Sahara Desert, Morocco</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 6 -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=600&h=400&q=80" alt="Northern Lights">
+        <div class="gallery-overlay">
+          <h3>Aurora Borealis</h3>
+          <p>Iceland</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 7 -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1471922694854-ff1b63b22c8f?auto=format&fit=crop&w=600&h=400&q=80" alt="Waterfall">
+        <div class="gallery-overlay">
+          <h3>Majestic Waterfall</h3>
+          <p>Yosemite National Park</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 8 -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?auto=format&fit=crop&w=600&h=400&q=80" alt="Mountain Lake">
+        <div class="gallery-overlay">
+          <h3>Mountain Lake</h3>
+          <p>Canadian Rockies</p>
+        </div>
+      </div>
+      
+      <!-- 照片项 9 -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&h=400&q=80" alt="Snowy Peaks">
+        <div class="gallery-overlay">
+          <h3>Snowy Peaks</h3>
+          <p>Swiss Alps</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="gallery-info">
+      <h2>About My Photography</h2>
+      <p>Photography has been my passion since my undergraduate years. It serves as a creative outlet that complements my scientific research. Through my lens, I capture the beauty of nature, architecture, and everyday moments. Each photo tells a story and reflects my perspective on the world around me. I believe that both science and art are essential for understanding and appreciating the complexity of our universe.</p>
+    </div>
   </section>
+
+  <footer>
+    <p>&copy; 2023 Hamster-B Research Portal. All rights reserved. This website's content is for educational and communication purposes only.</p>
+    <p>If you believe any material infringes your rights, please contact us for removal.</p>
+  </footer>
 
 </body>
 </html>
