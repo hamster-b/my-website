@@ -1,16 +1,65 @@
-<!-- 单个项目模板 -->
-<div class="project-card">
-  <div class="project-image">
-    <img src="[IMAGE_URL]" alt="[ALT_TEXT]">
-    [PREMIUM_BADGE]
-  </div>
-  <div class="project-content">
-    <h3 class="project-title"><i class="[ICON_CLASS]"></i> [TITLE]</h3>
-    <p class="project-description">[DESCRIPTION]</p>
-    <div class="project-meta">
-      <span><i class="far fa-calendar"></i> [START_DATE]-[END_DATE]</span>
-      <span><i class="fas fa-tags"></i> [TAGS]</span>
-    </div>
-    <a href="#" class="project-btn [PREMIUM_CLASS] open-modal" data-modal="modal[ID]">View Project Details</a>
-  </div>
-</div>
+      {
+        id: 1,
+        title: "Waveguide Dispersion",
+        image: "waveguide.png",
+        icon: "fas fa-microchip",
+        description: "Designed a novel silicon photonics chip for high-speed optical communication systems. This project achieved record-breaking data transmission rates of 200 Gbps with ultra-low power consumption.",
+        tags: ["Photonics", "Semiconductor"],
+        startDate: "2022",
+        endDate: "Present",
+        premium: false,
+        modalContent: `
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Silicon Photonics Chip Design</h3>
+              <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-image">
+                <img src="waveguide.png" alt="Silicon Photonics Chip">
+              </div>
+              <div class="modal-description">
+                <p>This project focuses on developing next-generation silicon photonics chips for high-speed data communication. We achieved a breakthrough in data transmission rates, reaching 200 Gbps with power consumption under 5 pJ/bit. This innovation enables more efficient data centers and high-performance computing systems.</p>
+              </div>
+              
+              <div class="modal-section">
+                <h3>Technical Approach</h3>
+                <p>Using advanced waveguide designs and novel modulation techniques, we minimized signal loss and maximized data throughput. Our approach included:</p>
+                <ul>
+                  <li>Sub-wavelength grating couplers for improved light coupling</li>
+                  <li>Geometric phase modulation for precise signal control</li>
+                  <li>Multi-layered silicon nitride waveguides for reduced crosstalk</li>
+                  <li>Integrated photodetectors with enhanced quantum efficiency</li>
+                </ul>
+              </div>
+              
+              <div class="modal-section">
+                <h3>Performance Results</h3>
+                <p>The chip demonstrated outstanding performance metrics across all parameters:</p>
+                <div class="code-snippet">
+                  // Performance measurement results
+                  TransmissionRate = 200 Gbps; // Per channel
+                  PowerConsumption = 4.7 pJ/bit;
+                  BER = 1e-12; // Bit error rate
+                  SignalLoss = 1.2 dB/cm;
+                  OperatingWavelength = 1550 nm;
+                </div>
+                <p>These results represent a 40% improvement over existing commercial solutions.</p>
+              </div>
+              
+              <div class="modal-section">
+                <h3>Implementation Video</h3>
+                <div style="position:relative; padding-top:56.25%; margin-bottom:25px;">
+                  <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:8px;" 
+                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                          title="YouTube video player" 
+                          frameborder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowfullscreen>
+                  </iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
