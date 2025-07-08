@@ -6,7 +6,7 @@
     <title>Research Projects | Hamster-B's Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* 基础样式保持不变 */
+        /* 基础样式 */
         * {
             margin: 0;
             padding: 0;
@@ -503,25 +503,18 @@
   <!-- 头部区域 -->
   <header>
       <h1>Research Projects</h1>
-      <p>Discover my latest innovations in integrated photonics</p>
+      <p>Discover my works in integrated photonics</p>
   </header>
 
   <!-- 项目介绍区域 -->
   <section class="projects-section">
     <div class="projects-intro">
-        <h2>Innovative Photonics Research</h2>
-        <p>Explore my groundbreaking projects in photonic engineering. Each project includes detailed research methods, results, and implementation details. Premium content provides exclusive access to source code, experimental data, and video demonstrations.</p>
+        <h2>Photonics Research</h2>
+        <p>Each project includes detailed research methods, results, and implementation details. Premium content provides exclusive access to source code, experimental data, and video demonstrations.</p>
     </div>
     
     <div class="projects-grid" id="projects-container">
       <!-- 项目将通过JavaScript动态加载 -->
-    </div>
-    
-    <!-- 添加新项目按钮 -->
-    <div class="add-project">
-      <button id="add-project-btn">
-        <i class="fas fa-plus-circle"></i> Add New Project
-      </button>
     </div>
   </section>
   
@@ -769,16 +762,6 @@
             document.body.style.overflow = '';
           });
         }
-      });
-    }
-
-    // 添加新项目功能
-    function setupAddProject() {
-      const addButton = document.getElementById('add-project-btn');
-      
-      addButton.addEventListener('click', function() {
-        // 这里可以添加表单或直接跳转到新项目创建页面
-        alert('Add new project functionality would be implemented here');
       });
     }
 
