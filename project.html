@@ -570,6 +570,7 @@
                 <h3>Performance Results</h3>
                 <p>The code:</p>
                 <div class="code-snippet">
+                <pre>
                   ####before runing the script, please check the material explorer! 
                   ####Please check the d-card can copy the right optical mode!
 
@@ -616,7 +617,7 @@
                   mesh_x = 20*nm; 
                   mesh_z = 20*nm;
 
-                  # ====== 建立模型结构 ======
+                  # ====== Build the model structure ======
                   addrect; 
                   set("name","sub"); 
                   set("material",material_sub);
@@ -673,7 +674,7 @@
                   set('buffer',1*um+thick_slab);
                   set('dx',mesh_x); set('dy',mesh_y); set('dz',mesh_z);
 
-                  # ================== 仿真主流程 ==================
+                  # ================== Simulation main process ==================
 
                   if (work_mode == 1) {
                       # --- 波长扫描 ---
@@ -774,6 +775,7 @@
                       legend(mode_label{1:number_mode});
                       holdoff;
                   }
+                </pre>
                 </div>
                 <p>These results represent a 40% improvement over existing commercial solutions.</p>
               </div>
