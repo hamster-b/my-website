@@ -26,7 +26,7 @@
                 <p>Waveguide Width Sweep: Investigate how the waveguide width affects neff and loss.</p>
               </div>
 
-              <div class="modal-image">
+              <div class="modal-section">
                 <img src="waveguide_plot1.png" alt="Silicon Photonics Chip">
               </div>
               
@@ -36,6 +36,11 @@
                 <ul>
                   <li>[1] Lin Zhang, Qiang Lin, Yang Yue, Yan Yan, Raymond G. Beausoleil, and Alan E. Willner, "Silicon waveguide with four zero-dispersion wavelengths and its application in on-chip octave-spanning supercontinuum generation," Opt. Express 20, 1685-1690 (2012)</li>
                 </ul>
+              </div>
+
+              <div class="modal-section">
+                <h3>Figure</h3>
+                <img src="waveguide_plot2.png" alt="Silicon Photonics Chip">   
               </div>
               
               <div class="modal-section">
@@ -249,21 +254,396 @@
                   }
                  </pre>
                 </div>
-                <p>These results represent a 40% improvement over existing commercial solutions.</p>
               </div>
-              
-              <div class="modal-section">
-                <h3>Implementation Video</h3>
-                <div style="position:relative; padding-top:56.25%; margin-bottom:25px;">
-                  <iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:8px;" 
-                          src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                          title="YouTube video player" 
-                          frameborder="0" 
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                          allowfullscreen>
-                  </iframe>
+
+            <div class="modal-section">
+                <h3>Performance Results</h3>
+                <p>The code:</p>
+                <div class="code-snippet">
+                 <pre>
+                        ####before runing the script, please check the material explorer! 
+                        ####Please check the d-card can copy the right optical mode!
+                        
+                        #Simulation Setting
+                        switchtolayout;
+                        selectall;
+                        delete;
+                        cleardcard;
+                        nm=1e-9;
+                        um=1e-6;
+                        
+                        #Manual input section
+                        work_mode = 2;#1折射率随波长的变化；2折射率随波导宽度的变化；
+                        cal_loss = 0;#是否计算损耗1计算/0不计算；
+                        number_mode = 5;#计算模式的个数；
+                        
+                        lamda = 1.55*um;
+                        lamda_max = 1.6*um;#只在模式1下工作
+                        lamda_min = 1.5*um;#只在模式1下工作
+                        lamda_delt = 0.01*um;#只在模式1下工作
+                        width_topwaveguide_min = 0.3*um;#只在模式2下工作
+                        width_topwaveguide_max = 1.5*um;#只在模式2下工作
+                        width_topwaveguide_delt = 0.05*um;#只在模式2下工作
+                        
+                        material_sub="Si (Silicon) - Palik";
+                        material_box="SiO2 (Glass) - Palik";
+                        material_slab="Si (Silicon) - Palik";
+                        material_waveguide="Si (Silicon) - Palik";
+                        material_clad1="SiO2 (Glass) - Palik";
+                        material_clad2="etch";
+                        
+                        thick_sub = 20*um;
+                        thick_box = 3*um;
+                        thick_slab = 0.1*um;
+                        thick_waveguide = 0.2*um;
+                        thick_clad1 = 3*um;
+                        thick_clad2 = 20*um;
+                        width_topwaveguide = 0.4*um;
+                        angle_waveguide = 80;
+                        
+                        distance=1.8*lamda;
+                        
+                        mesh_y=20*nm;
+                        mesh_x=20*nm;
+                        mesh_z=20*nm;
+                        
+                        ############Model Building#############################################
+                        #添加衬底
+                        addrect;
+                        set("name","sub");#名称
+                        set("material",material_sub);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",-thick_box-thick_sub*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("x span",100*um);#设置x方向宽度
+                        set("y span",thick_sub);#设置y方向宽度
+                        set("z span",100*um);#设置x方向宽度
+                        set("alpha",1);
+                        
+                        #添加埋氧层
+                        addrect;
+                        set("name","box");#名称
+                        set("material",material_box);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",-thick_box*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("x span",100*um);#设置x方向宽度
+                        set("y span",thick_box);#设置y方向宽度
+                        set("z span",100*um);#设置x方向宽度
+                        set("alpha",1);
+                        
+                        #添加未刻蚀区域
+                        addrect;
+                        set("name","slab");#名称
+                        set("material",material_slab);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",thick_slab*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("x span",100*um);#设置x方向宽度
+                        set("y span",thick_slab);#设置y方向宽度
+                        set("z span",100*um);#设置x方向宽度
+                        set("alpha",1);
+                        
+                        #添加包层1
+                        addrect;
+                        set("name","clad1");#名称
+                        set("material",material_clad1);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",thick_slab+thick_clad1*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("x span",100*um);#设置x方向宽度
+                        set("y span",thick_clad1);#设置y方向宽度
+                        set("z span",100*um);#设置x方向宽度
+                        set("alpha",0.8);
+                        
+                        #添加包层2
+                        addrect;
+                        set("name","clad2");#名称
+                        set("material",material_clad2);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",thick_slab+thick_clad1+ thick_clad2*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("x span",100*um);#设置x方向宽度
+                        set("y span",thick_clad2);#设置y方向宽度
+                        set("z span",100*um);#设置x方向宽度
+                        set("alpha",0.5);
+                        
+                        #添加包层1剩余部分
+                        addwaveguide;
+                        set("name","clad1-waveguide");#名称
+                        set("material",material_clad1);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",thick_slab+thick_clad1+thick_waveguide*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("Base width",width_topwaveguide+2*thick_waveguide/tan(angle_waveguide));
+                        set("Base Height",thick_waveguide);
+                        set("Base Angle",angle_waveguide);
+                        set("alpha",0.5);
+                        pole = [0,-50; 0,50]*1e-6;
+                        set("poles",pole);
+                        set("first axis",2);
+                        set("rotation 1",270);
+                        set("alpha",0.5);
+                        
+                        #添加波导
+                        addwaveguide;
+                        set("name","waveguide");#名称
+                        set("material",material_waveguide);#材料
+                        set("x",0);#设置x中心点坐标
+                        set("y",thick_slab+thick_waveguide*0.5);#设置y中心点坐标
+                        set("z",0);#设置z中心点坐标
+                        set("Base width",width_topwaveguide+2*thick_waveguide/tan(angle_waveguide));
+                        set("Base Height",thick_waveguide);
+                        set("Base Angle",angle_waveguide);
+                        set("alpha",0.5);
+                        pole = [0,-50; 0,50]*1e-6;
+                        set("poles",pole);
+                        set("first axis",2);
+                        set("rotation 1",270);
+                        
+                        #添加仿真区域
+                        addfde;
+                        set("x",0);
+                        set("y",thick_slab*0.5+thick_waveguide*0.5);
+                        set("z",0*um);
+                        set("x span",width_topwaveguide+2*thick_waveguide/tan(angle_waveguide)+2*distance);
+                        set("y span",thick_slab+thick_waveguide+2*distance);
+                        if (cal_loss==0){
+                        set("x min bc","metal");  # x 方向最小边界
+                        set("x max bc","metal");  # x 方向最大边界
+                        set("y min bc","metal");
+                        set("y max bc","metal");
+                        }
+                        if (cal_loss==1){
+                        set("x min bc","PML");  # x 方向最小边界
+                        set("x max bc","PML");  # x 方向最大边界
+                        set("y min bc","PML");
+                        set("y max bc","PML");
+                        }
+                        
+                        addmesh;
+                        set('based on a structure',true);
+                        set('structure','waveguide');
+                        set('buffer',1*um+thick_slab);
+                        set('dx',mesh_x);
+                        set('dy',mesh_y);
+                        set('dz',mesh_z);
+                        
+                        #########stat simulation######################
+                        if (work_mode == 1){
+                                           n=(lamda_max - lamda_min) / lamda_delt;
+                                           data_matrix = matrix(n+2, 1+2*number_mode); # 列分别为：wavelength[m], neff, loss[dB/m]
+                                           run;
+                                           setanalysis("wavelength",lamda);
+                                           findmodes;
+                                           copydcard("mode1","TE00");
+                                           copydcard("mode2","TM00");
+                                           switchtolayout;
+                                           #i = 0;
+                                           for (i = 0:n+1){
+                                               i = i + 1;
+                                               current_lambda = lamda_min+lamda_delt*(i-1);
+                                               run;
+                                               setanalysis("wavelength",current_lambda);
+                                               findmodes;
+                                               TE00 = bestoverlap("TE00");
+                                               neff1 = real(getdata(TE00, "neff"));
+                                               loss1 = getdata(TE00, "loss"); # dB/m
+                                               TM00 = bestoverlap("TM00");
+                                               neff2 = real(getdata(TM00, "neff"));
+                                               loss2 = getdata(TM00, "loss"); # dB/m
+                                               # 存入矩阵
+                                               data_matrix(i,1) = current_lambda;
+                                               data_matrix(i,2) = neff1;
+                                               data_matrix(i,3) = loss1;
+                                               data_matrix(i,4) = neff2;
+                                               data_matrix(i,5) = loss2;
+                                               switchtolayout;
+                                           } 
+                                           # 存储为文件
+                                           savedata("FDE_results", data_matrix);
+                                           # 波长 vs neff
+                                           plot(data_matrix(:,1)*1e9, data_matrix(:,2), data_matrix(:,4), "Wavelength (nm)", "Effective Index", "neff vs Wavelength");
+                        
+                                           # 波长 vs 损耗
+                                           plot(data_matrix(:,1)*1e9, data_matrix(:,3), data_matrix(:,5), "Wavelength (nm)", "Loss (dB/m)", "Loss vs Wavelength");
+                        }
+                        else{
+                                           n=(width_topwaveguide_max - width_topwaveguide_min) / width_topwaveguide_delt;
+                                           data_matrix = matrix(n+2, 1+2*number_mode); # 列分别为：width[um], neff, loss[dB/m]
+                                           select("waveguide");
+                                           set("Base Width",width_topwaveguide_max+2*thick_waveguide/tan(angle_waveguide));
+                                           select("clad1-waveguide");
+                                           set("Base Width",width_topwaveguide_max+2*thick_waveguide/tan(angle_waveguide));
+                                           run;
+                                           setanalysis("wavelength",lamda);
+                                           findmodes;
+                                           copydcard("mode1","TE00");
+                                           copydcard("mode2","TE01");
+                                           copydcard("mode3","TE02");
+                                           copydcard("mode4","TM00");
+                                           copydcard("mode5","TM01");
+                                           switchtolayout;
+                                           #i = 0;
+                                           for (i = 0:n+1){
+                                               i = i + 1;
+                                               current_width = width_topwaveguide_min+width_topwaveguide_delt*(i-1);
+                                               select("waveguide");
+                                               set("Base Width",current_width+2*thick_waveguide/tan(angle_waveguide));
+                                               select("clad1-waveguide");
+                                               set("Base Width",current_width+2*thick_waveguide/tan(angle_waveguide));
+                                               run;
+                                               setanalysis("wavelength",lamda);
+                                               findmodes;
+                                               TE00 = bestoverlap("TE00");
+                                               neff1 = real(getdata(TE00, "neff"));
+                                               loss1 = getdata(TE00, "loss"); # dB/m
+                                               
+                                               TE01 = bestoverlap("TE00");
+                                               neff2 = real(getdata(TE01, "neff"));
+                                               loss2 = getdata(TE01, "loss"); # dB/m
+                                               
+                                               TE02 = bestoverlap("TE02");
+                                               neff3 = real(getdata(TE02, "neff"));
+                                               loss3 = getdata(TE02, "loss"); # dB/m
+                                               
+                                               TM00 = bestoverlap("TM00");
+                                               neff4 = real(getdata(TM00, "neff"));
+                                               loss4 = getdata(TM00, "loss"); # dB/m
+                                               
+                                               TM01 = bestoverlap("TM01");
+                                               neff5 = real(getdata(TM01, "neff"));
+                                               loss5 = getdata(TM01, "loss"); # dB/m
+                                               
+                                               # 存入矩阵
+                                               data_matrix(i,1) = current_width;
+                                               data_matrix(i,2) = neff1;
+                                               data_matrix(i,3) = loss1;
+                                               data_matrix(i,4) = neff2;
+                                               data_matrix(i,5) = loss2;
+                                               data_matrix(i,6) = neff3;
+                                               data_matrix(i,7) = loss3;
+                                               data_matrix(i,8) = neff4;
+                                               data_matrix(i,9) = loss4;
+                                               data_matrix(i,10) = neff5;
+                                               data_matrix(i,11) = loss5;
+                                               switchtolayout;
+                                           } 
+                                           # 存储为文件
+                                           savedata("FDE_results", data_matrix);
+                                           # 波导宽度 vs neff
+                                           plot(data_matrix(:,1)*1e6, data_matrix(:,2), data_matrix(:,4), data_matrix(:,6), data_matrix(:,8), data_matrix(:,10), "Waveguide width (um)", "Effective Index", "neff vs Waveguide width");
+                        
+                                           # 波导宽度 vs 损耗
+                                           plot(data_matrix(:,1)*1e6, data_matrix(:,3), data_matrix(:,5), data_matrix(:,7), data_matrix(:,9), data_matrix(:,11), "Waveguide width (um)", "Loss (dB/m)", "Loss vs Waveguide width");
+                        }
+                 </pre>
                 </div>
               </div>
+
+             <div class="modal-section">
+                <h3>Performance Results</h3>
+                <p>The code:</p>
+                <div class="code-snippet">
+                 <pre>
+                        import numpy as np
+                        import pandas as pd
+                        import matplotlib
+                        
+                        matplotlib.use('Agg')  # Use non-interactive backend
+                        import matplotlib.pyplot as plt
+                        
+                        # Configure matplotlib for Nature journal style
+                        plt.rcParams.update({
+                            'font.family': 'Arial',  # Nature-preferred font (fallback to Arial if unavailable)
+                            'font.size': 12,  # Axes labels and ticks
+                            'axes.titlesize': 14,  # Title font size
+                            'axes.labelsize': 14,
+                            'legend.fontsize': 12,
+                            'xtick.labelsize': 12,
+                            'ytick.labelsize': 12,
+                            'lines.linewidth': 2,  # Line width for curves
+                            'axes.linewidth': 1.2,  # Axes border width
+                            'figure.dpi': 600,  # High resolution
+                            'xtick.direction': 'in',  # Ticks inward
+                            'ytick.direction': 'in',
+                            'xtick.major.size': 3,  # Tick length (in points)
+                            'ytick.major.size': 3,
+                            'xtick.minor.size': 0,  # Minor tick length
+                            'ytick.minor.size': 0,
+                        })
+                        
+                        # Define mode labels, colors, and linestyles
+                        mode_labels = ["TE$_0$$_0$", "TE$_0$$_1$", "TE$_0$$_2$", "TM$_0$$_0$", "TM$_0$$_1$"]
+                        colors = [
+                            '#5C9AC7',  # RGB: (92, 154, 199) - 浅蓝色
+                        
+                            '#ED3657',  # RGB: (237, 54, 87) - 鲜红色
+                        
+                            '#5CA08B',  # RGB: (92, 160, 139) - 浅绿色
+                        
+                            '#EB8024',  # RGB: (235, 128, 36) - 浅橙色
+                        
+                            '#E7C21C',  # RGB: (231, 194, 28) - 亮黄色
+                        
+                            '#CAC656',  # RGB: (202, 198, 86) - 橄榄绿
+                            '#DC7324',  # RGB: (220, 115, 36) - 橙黄色
+                            '#2797AF',  # RGB: (39, 151, 175) - 浅青色
+                            '#0D9C86',  # RGB: (13, 156, 134) - 深青色
+                        ]
+                        linestyles = ['-', '-', '-', '-', '-']  # Solid for TE, dashed for TM
+                        
+                        # Define axis ranges (modify these based on your data)
+                        x_min, x_max = 0.3, 1.5  # Waveguide width in micrometers
+                        y_min, y_max = 2.2, 3.2  # Effective index
+                        
+                        # Read data_matrix section with pandas, skipping 139 rows
+                        try:
+                            # Read only the data_matrix section (121 rows, 11 columns)
+                            data = pd.read_csv('C:/Users/Admin/Desktop/file', skiprows=139, header=None,
+                                               sep='\s+', names=range(11), nrows=121)
+                        
+                            # Convert data to numpy array, replacing bracketed values with NaN
+                            data = data.to_numpy()
+                            # Replace values in parentheses with NaN
+                            for col in range(data.shape[1]):
+                                data[:, col] = pd.Series(data[:, col].astype(str)).str.replace(r'^\((.*)\)$', r'\1', regex=True)
+                                data[:, col] = pd.to_numeric(data[:, col], errors='coerce')
+                        except Exception as e:
+                            print(f"Error reading file: {e}")
+                            print("Please check the file format or path.")
+                            exit()
+                        
+                        # Extract x-values (first column, convert to micrometers)
+                        xval = data[:, 0] * 1e6  # Convert meters to micrometers
+                        
+                        # Create figure with 4:3 aspect ratio
+                        plt.figure(figsize=(6, 4.5))
+                        
+                        # Plot each mode (columns 2, 4, 6, 8, 10 correspond to indices 1, 3, 5, 7, 9)
+                        for m in range(5):
+                            col_index = 2 * m + 1  # Select columns 1, 3, 5, 7, 9 (0-based indexing)
+                            plt.plot(xval, data[:, col_index], label=mode_labels[m], color=colors[m], linestyle=linestyles[m])
+                        
+                        # Add labels, title, legend, and no grid
+                        plt.xlabel("Waveguide Width (µm)")
+                        plt.ylabel("Effective Index")
+                        plt.title("Effective Index vs Waveguide Width")
+                        plt.legend(loc='upper left', frameon=True, framealpha=0.9, edgecolor='black')
+                        plt.minorticks_on()  # Add minor ticks for Nature style
+                        
+                        # Set manual axis ranges
+                        plt.xlim(x_min, x_max)
+                        plt.ylim(y_min, y_max)
+                        
+                        # Save plot with high resolution
+                        plt.savefig('waveguide_plot_nature.png', dpi=300, bbox_inches='tight')
+                        plt.close()  # Close figure to free memory
+                        print("Plot saved as 'waveguide_plot_nature.png'")
+                 </pre>
+                </div>
+              </div>
+              
             </div>
           </div>
         `
